@@ -52,6 +52,57 @@ public class Remy {
         }
     }
 
+    void deterministic_growing_tree(long n, int[] list) {
+        long i, number, tmp;
+
+        // built a tree of size 1
+        tree[0].left_child = 1;
+        tree[0].right_child = 2;
+        tree[0].num = 1;
+        tree[1].parent = tree[2].parent = 0;
+        tree[1].right_child = tree[1].left_child = -1;
+        tree[2].right_child = tree[2].left_child = -1;
+
+        // the internal nodes will be in the boxes [0; i-1[ of the tree's array
+        // the leaves in boxes [i, 2*i[ of the tree's array
+
+        for(i=2; i<=n; i++){
+            number = (long) (list[(int)i-2] * i); // random number of [0, i[
+            // the leaf is in the box number+i -1
+            change_leaves((int)(i-1), (int)(number+i-1));
+            tree[(int)(i-1)].right_child = (int) (2*i-1);
+            tree[(int)(i-1)].left_child = (int) (2*i);
+
+            tree[(int)(i-1)].num = (int) i;
+            tree[(int)(2*i-1)].parent = tree[(int)(2*i)].parent = (int)(i-1);
+            tree[(int)(2*i-1)].right_child = tree[(int)(2*i-1)].left_child = -1;
+            tree[(int)(2*i)].right_child = tree[(int)(2*i)].left_child = -1;
+        }
+    }
+
+    // à check
+    public boolean isLeaf(int i){
+       return tree[i].right_child==-1 && tree[i].left_child==-1;
+    }
+
+    public String phi(int i){
+        if(isLeaf(i))
+            return "";
+        else {
+            return "("+tree[i].left_child+")"+phi(tree[i].right_child);
+        }
+    }
+
+    // test de couverture
+    public static boolean testDeCouverture(){
+        for(int n = 0; n <= 10; n++){
+
+        }
+
+        return false;
+    }
+
+
     public static void main(){
 
     }
