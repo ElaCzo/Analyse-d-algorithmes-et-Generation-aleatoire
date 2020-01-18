@@ -5,7 +5,7 @@ public class Remy {
     public Node[] tree;
 
     // construction of a growing binary tree with n internal nodes (n <= N)
-    // modifies the postiion of two leaves, does not modify the tree built
+    // modifies the position of two leaves, does not modify the tree built
     public void change_leaves(int a, int b){
         int parenta, parentb;
         parenta = tree[a].parent;
@@ -89,12 +89,16 @@ public class Remy {
        return tree[i].right_child==-1 && tree[i].left_child==-1;
     }
 
-    public String phi(int i){
+    private String phi(int i){
         if(isLeaf(i))
             return "";
         else {
             return "("+tree[i].left_child+")"+phi(tree[i].right_child);
         }
+    }
+
+    public String phi(){
+        return phi(0);
     }
 
     private long fact(long n){
@@ -146,21 +150,41 @@ public class Remy {
     }
 
     // test de couverture
-    public boolean coverageTests(int NN) {
-        Node[][] differentTrees = new Node[NN][];
-        int[] counter;
+    public static boolean coverageTests(int noeuds) { ;
+        int diffTrees = catalan(noeuds);
+        Remy[] differentTrees = new Remy[diffTrees];
+        int[] counter = new int[diffTrees];
+        boolean counted;
+        int sizeOfDifferentTrees = 0;
 
-        int[] list = new int[NN];
+        int[] list = new int[noeuds];
 
-        for (int i = (int) N - 1; i >= 0; i--){
-            for (int n = 0; n < N; n++) {
+        for (int i = (int) noeuds - 1; i >= 0; i--){
+            for (int n = 0; n < noeuds; n++) {
                 list[i] = n;
-                Remy remy = new Remy(NN, list);
-                //differentTrees[n];
+                Remy remy = new Remy(noeuds, list);
+
+                // parcours des arbres déjà présents
+                counted = false;
+                for(int k = 0; k < sizeOfDifferentTrees; k++)
+                    if(differentTrees[k].phi().equals(remy.phi())){
+                        counter[k]++;
+                        counted = true;
+                    }
+
+                if(!counted){
+                    differentTrees[sizeOfDifferentTrees]=remy;
+                    sizeOfDifferentTrees++;
+                }
             }
         }
 
-        return false;
+        // uniformity?
+        for(int i=0; i<differentTrees.length-1; i++)
+            if(counter[i]!=counter[i+1])
+                return false;
+
+        return true;
     }
 
     public static void main(){
