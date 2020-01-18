@@ -1,12 +1,12 @@
 import java.util.Random;
 
 public class Remy {
-    int N = 1000;
-    Node[] tree = new Node[2*N +1];
+    public long N;
+    public Node[] tree;
 
     // construction of a growing binary tree with n internal nodes (n <= N)
     // modifies the postiion of two leaves, does not modify the tree built
-    void change_leaves(int a, int b){
+    public void change_leaves(int a, int b){
         int parenta, parentb;
         parenta = tree[a].parent;
         parentb = tree[b].parent;
@@ -24,8 +24,10 @@ public class Remy {
         tree[b].parent = parenta;
     }
 
-    void growing_tree(long n) {
-        long i, number, tmp;
+    public Remy(long n) {
+        long i, number;
+        N=n;
+        tree = new Node[2*(int)N +1];
 
         // built a tree of size 1
         tree[0].left_child = 1;
@@ -52,8 +54,10 @@ public class Remy {
         }
     }
 
-    void deterministic_growing_tree(long n, int[] list) {
-        long i, number, tmp;
+    public Remy(long n, int[] list) {
+        long i, number;
+        N=n;
+        tree = new Node[2*(int)n +1];
 
         // built a tree of size 1
         tree[0].left_child = 1;
@@ -93,15 +97,71 @@ public class Remy {
         }
     }
 
-    // test de couverture
-    public static boolean testDeCouverture(){
-        for(int n = 0; n <= 10; n++){
+    private long fact(long n){
+        if (n==0){
+            return 1;
+        }
 
+        return fact(n-1)*n;
+    }
+
+    /*private int[][] createList(){
+        int[][] lists = new int[(int)N][];
+
+
+        int list[] = new int[(int)N];
+        long nbLists = fact(N);
+        for(int i=0; i < fact(N); i++){
+            for()
+            lists[i] = ;
+        }
+
+        return ;
+    }*/
+
+    /*private static boolean coverageTestsForSizeN(long n){
+        Node[] differentTrees;
+        int[] counter;
+        Remy tree;
+
+        for(int i=0 ; i<n ; i++)
+            ;
+
+    }*/
+
+    public static int catalan(int n){
+        if(n==0)
+            return 1;
+
+        int res = 0;
+        for(int k = 0; k<n; k++){
+            res += catalan(k)*catalan(n-k);
+        }
+        return res;
+    }
+
+    // nombre de Catalan
+    public int catalan(){
+        return catalan((int)N);
+    }
+
+    // test de couverture
+    public boolean coverageTests(int NN) {
+        Node[][] differentTrees = new Node[NN][];
+        int[] counter;
+
+        int[] list = new int[NN];
+
+        for (int i = (int) N - 1; i >= 0; i--){
+            for (int n = 0; n < N; n++) {
+                list[i] = n;
+                Remy remy = new Remy(NN, list);
+                //differentTrees[n];
+            }
         }
 
         return false;
     }
-
 
     public static void main(){
 
