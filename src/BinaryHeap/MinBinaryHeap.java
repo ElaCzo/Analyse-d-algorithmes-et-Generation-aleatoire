@@ -59,5 +59,4 @@ public class MinBinaryHeap<T extends Comparable<T>> {
 
         return this;
     }
-
 }
