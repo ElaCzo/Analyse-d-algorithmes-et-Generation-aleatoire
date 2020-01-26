@@ -17,35 +17,39 @@ public class MinBinaryHeap<T extends Comparable<T>> {
         heap.add(j, tmp);
     }
 
-    public MinBinaryHeap<T> removeMin(){
-        swap(0, heap.size()-1);
+    public T removeMin(){
+        if(heap.isEmpty())
+            return null;
+        else {
+            swap(0, heap.size() - 1);
 
-        int ind_min = 0;
+            T min = heap.remove((int) (heap.size() - 1));
+            int ind_min = 0;
 
-        boolean leftSonSmaller = (ind_min*2<heap.size()-1) &&
-                (heap.get(ind_min).compareTo(heap.get(ind_min*2))>0);
+            boolean leftSonSmaller = (ind_min * 2 < heap.size() - 1) &&
+                    (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
 
-        boolean rightSonSmaller = ((ind_min*2+1)<heap.size()-1) &&
-                (heap.get(ind_min).compareTo(heap.get(ind_min*2+1))>0);
+            boolean rightSonSmaller = ((ind_min * 2 + 1) < heap.size() - 1) &&
+                    (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
 
-        while(leftSonSmaller || rightSonSmaller) {
-            if(leftSonSmaller) {
-                swap(ind_min, ind_min * 2);
-                ind_min = ind_min * 2;
+            while (leftSonSmaller || rightSonSmaller) {
+                if (leftSonSmaller) {
+                    swap(ind_min, ind_min * 2);
+                    ind_min = ind_min * 2;
+                } else if (rightSonSmaller) {
+                    swap(ind_min, ind_min * 2 + 1);
+                    ind_min = ind_min * 2 + 1;
+                }
+
+                leftSonSmaller = (ind_min * 2 < heap.size() - 1) &&
+                        (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
+
+                rightSonSmaller = ((ind_min * 2 + 1) < heap.size() - 1) &&
+                        (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
             }
-            else if(rightSonSmaller){
-                swap(ind_min, ind_min * 2 + 1);
-                ind_min = ind_min * 2 + 1;
-            }
 
-            leftSonSmaller = (ind_min*2<heap.size()-1) &&
-                    (heap.get(ind_min).compareTo(heap.get(ind_min*2))>0);
-
-            rightSonSmaller = ((ind_min*2+1)<heap.size()-1) &&
-                    (heap.get(ind_min).compareTo(heap.get(ind_min*2+1))>0);
+            return min;
         }
-
-        return this;
     }
 
     public MinBinaryHeap<T> add(T e){
