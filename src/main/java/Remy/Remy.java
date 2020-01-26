@@ -1,4 +1,4 @@
-import java.util.Random;
+package main.java.Remy;
 
 public class Remy {
     public long N;

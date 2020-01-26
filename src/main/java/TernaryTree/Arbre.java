@@ -1,4 +1,4 @@
-package TernaryTree;
+package main.java.TernaryTree;
 
 public class Arbre{
     public static int numero = 0;
@@ -6,6 +6,11 @@ public class Arbre{
     public int valeur;
     public char cle;
     public Arbre[] fils;
+
+    public Arbre(){
+        this.id = numero;
+        numero++;
+    }
 
     public Arbre(Integer valeur, char cle, Arbre[] fils){
         this.id = numero;

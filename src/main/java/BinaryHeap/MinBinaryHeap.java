@@ -1,4 +1,4 @@
-package BinaryHeap;
+package main.java.BinaryHeap;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class MinBinaryHeap<T extends Comparable<T>> {
         heap = new ArrayList<>();
     }
 
-    public void swap(int i, int j){
+    private void swap(int i, int j){
         T tmp = heap.get(i);
         heap.remove(i);
         heap.add(i, heap.get(j));

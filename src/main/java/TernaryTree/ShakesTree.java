@@ -1,7 +1,4 @@
-package TernaryTree;
-
-import TernaryTree.Arbre;
-import TernaryTree.ArbreTernaire;
+package main.java.TernaryTree;
 
 import java.util.Random;
 

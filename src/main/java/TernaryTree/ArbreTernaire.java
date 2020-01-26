@@ -1,4 +1,4 @@
-package TernaryTree;
+package main.java.TernaryTree;
 
 public class ArbreTernaire {
     private char racine;
@@ -73,7 +73,7 @@ public class ArbreTernaire {
             return new ArbreTernaire(this.racine, tmp);
         }
 
-        if ( A.cle > B.cle ){
+        if ( this.racine > tree.racine ){
             tmp[0] = this.children[0].fusionne(tree);
             tmp[1] = this.children[1];
             tmp[2] = this.children[2].fusionne(tree);
