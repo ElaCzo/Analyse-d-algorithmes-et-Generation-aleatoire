@@ -37,26 +37,26 @@ public class MinBinaryHeap<T extends Comparable<T>> {
             int ind_min = 0;
 
             if(heap.size()>1) {
-                boolean leftSonSmaller = ((ind_min * 2 + 1) < heap.size()) &&
-                        (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
+                boolean leftSonSmaller = ((ind_min * 2) < heap.size()) &&
+                        (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
 
-                boolean rightSonSmaller = ((ind_min * 2 + 2) < heap.size()) &&
-                        (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 2)) > 0);
+                boolean rightSonSmaller = ((ind_min * 2 + 1) < heap.size()) &&
+                        (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
 
                 while (leftSonSmaller || rightSonSmaller) {
                     if (leftSonSmaller) {
+                        swap(ind_min, ind_min * 2);
+                        ind_min = ind_min * 2;
+                    } else if (rightSonSmaller) {
                         swap(ind_min, ind_min * 2 + 1);
                         ind_min = ind_min * 2 + 1;
-                    } else if (rightSonSmaller) {
-                        swap(ind_min, ind_min * 2 + 2);
-                        ind_min = ind_min * 2 + 2;
                     }
 
-                    leftSonSmaller = ((ind_min * 2 + 1) < heap.size()) &&
-                            (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
+                    leftSonSmaller = ((ind_min * 2) < heap.size()) &&
+                            (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
 
-                    rightSonSmaller = ((ind_min * 2 + 2) < heap.size()) &&
-                            (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 2)) > 0);
+                    rightSonSmaller = ((ind_min * 2 + 1) < heap.size()) &&
+                            (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
                 }
             }
             return min;
