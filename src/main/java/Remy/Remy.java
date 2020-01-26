@@ -12,15 +12,17 @@ public class Remy {
         parentb = tree[b].parent;
 
         if(tree[parenta].right_child == a)
-            tree[parenta].right_child=b;
+            tree[parenta].right_child = b;
         else
-            tree[parenta].left_child=b;
+            tree[parenta].left_child = b;
+
         tree[a].parent = parentb;
 
         if(tree[parentb].right_child == b)
             tree[parentb].right_child = a;
         else
             tree[parentb].left_child = a;
+
         tree[b].parent = parenta;
     }
 
@@ -58,6 +60,8 @@ public class Remy {
         long i, number;
         N=n;
         tree = new Node[2*(int)n +1];
+        for(int ii=0; ii<tree.length; ii++)
+            tree[ii]=new Node();
 
         // built a tree of size 1
         tree[0].left_child = 1;
@@ -71,8 +75,14 @@ public class Remy {
         // the leaves in boxes [i, 2*i[ of the tree's array
 
         for(i=2; i<=n; i++){
-            number = (long) (list[(int)i-2] * i); // random number of [0, i[
+            System.out.println("i="+i);
+            System.out.println("n="+n);
+            System.out.println("list[(int)i-2]*i = "+(list[(int)i-2] * i));
+            System.out.println("(i-1) = "+(i-1));
+            number = (long) (list[(int)i-2]); // random number of [0, i[
             // the leaf is in the box number+i -1
+            System.out.println("number = "+(number));
+            System.out.println("(number+i-1) = "+(number+i-1));
             change_leaves((int)(i-1), (int)(number+i-1));
             tree[(int)(i-1)].right_child = (int) (2*i-1);
             tree[(int)(i-1)].left_child = (int) (2*i);
@@ -134,14 +144,12 @@ public class Remy {
     }*/
 
     public static int catalan(int n){
-        if(n==0)
+        if(n==0 || n==1)
             return 1;
 
-        int res = 0;
-        for(int k = 0; k<n; k++){
-            res += catalan(k)*catalan(n-k);
-        }
-        return res;
+        double res = (2. * (2. * ((double)n) - 3.) / ((double)n)) * catalan(n-1);
+
+        return (int)res;
     }
 
     // nombre de Catalan
@@ -160,8 +168,15 @@ public class Remy {
         int[] list = new int[noeuds];
 
         for (int i = (int) noeuds - 1; i >= 0; i--){
-            for (int n = 0; n < noeuds; n++) {
+            for (int n = 0; n <= i; n++) {
                 list[i] = n;
+
+                System.out.println("list : "+list);
+                for(int a : list){
+                    System.out.print(a+" ");
+                }
+                System.out.println();
+
                 Remy remy = new Remy(noeuds, list);
 
                 // parcours des arbres déjà présents
@@ -179,15 +194,19 @@ public class Remy {
             }
         }
 
+        System.out.println("differentTrees.length "+ differentTrees.length);
+
         // uniformity?
-        for(int i=0; i<differentTrees.length-1; i++)
-            if(counter[i]!=counter[i+1])
+        for(int i=0; i<differentTrees.length-1; i++) {
+            System.out.println(i+": " + counter[i]);
+            if (counter[i] != counter[i + 1])
                 return false;
+        }
 
         return true;
     }
 
-    public static void main(){
-
+    public static void main(String[] args){
+        Remy.coverageTests(6);
     }
 }
