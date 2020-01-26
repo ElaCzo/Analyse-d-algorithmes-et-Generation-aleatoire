@@ -22,7 +22,6 @@ class MinBinaryHeapTest {
                     for (int value : e)
                         bh.add(value);
 
-                    System.out.println("heap avant remove : " + bh.heap);
                     return bh;
                 })
                 .check(bh -> {
@@ -37,8 +36,10 @@ class MinBinaryHeapTest {
                             int min = bh.removeMin();
                             System.out.println("removemin : " + min);
                             System.out.println("l.get(" + i + ") = " + l.get(i));
-                            if (min != l.get(i))
+                            if (min != l.get(i)) {
+                                System.out.println("FAUX "+min + " "+l.get(i));
                                 return false;
+                            }
                             i++;
 
                             System.out.println();
