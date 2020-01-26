@@ -10,9 +10,15 @@ public class MinBinaryHeap<T extends Comparable<T>> {
     }
 
     private void swap(int i, int j){
+        //System.out.println("i="+i+" j="+j+" heap.size()="+heap.size());
+
         T tmp = heap.get(i);
         heap.remove(i);
-        heap.add(i, heap.get(j));
+        if(i<j)
+            heap.add(i, heap.get(j-1));
+        else
+            heap.add(i, heap.get(j));
+
         heap.remove(j);
         heap.add(j, tmp);
     }
@@ -21,33 +27,37 @@ public class MinBinaryHeap<T extends Comparable<T>> {
         if(heap.isEmpty())
             return null;
         else {
-            swap(0, heap.size() - 1);
+            System.out.println("heap.size() : "+(heap.size()));
+
+            if(heap.size()>1)
+                swap(0, heap.size() - 1);
 
             T min = heap.remove((int) (heap.size() - 1));
             int ind_min = 0;
 
-            boolean leftSonSmaller = (ind_min * 2 < heap.size() - 1) &&
-                    (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
-
-            boolean rightSonSmaller = ((ind_min * 2 + 1) < heap.size() - 1) &&
-                    (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
-
-            while (leftSonSmaller || rightSonSmaller) {
-                if (leftSonSmaller) {
-                    swap(ind_min, ind_min * 2);
-                    ind_min = ind_min * 2;
-                } else if (rightSonSmaller) {
-                    swap(ind_min, ind_min * 2 + 1);
-                    ind_min = ind_min * 2 + 1;
-                }
-
-                leftSonSmaller = (ind_min * 2 < heap.size() - 1) &&
+            if(heap.size()>1) {
+                boolean leftSonSmaller = (ind_min * 2 < heap.size() - 1) &&
                         (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
 
-                rightSonSmaller = ((ind_min * 2 + 1) < heap.size() - 1) &&
+                boolean rightSonSmaller = ((ind_min * 2 + 1) < heap.size() - 1) &&
                         (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
-            }
 
+                while (leftSonSmaller || rightSonSmaller) {
+                    if (leftSonSmaller) {
+                        swap(ind_min, ind_min * 2);
+                        ind_min = ind_min * 2;
+                    } else if (rightSonSmaller) {
+                        swap(ind_min, ind_min * 2 + 1);
+                        ind_min = ind_min * 2 + 1;
+                    }
+
+                    leftSonSmaller = (ind_min * 2 < heap.size() - 1) &&
+                            (heap.get(ind_min).compareTo(heap.get(ind_min * 2)) > 0);
+
+                    rightSonSmaller = ((ind_min * 2 + 1) < heap.size() - 1) &&
+                            (heap.get(ind_min).compareTo(heap.get(ind_min * 2 + 1)) > 0);
+                }
+            }
             return min;
         }
     }
