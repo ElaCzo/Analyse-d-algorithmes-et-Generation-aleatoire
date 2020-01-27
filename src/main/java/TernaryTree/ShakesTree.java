@@ -1,21 +1,42 @@
 package main.java.TernaryTree;
 
+import sun.misc.IOUtils;
+
+import java.io.*;
 import java.util.Random;
 
 public class ShakesTree {
 
     private static String REPOSITORY = "/";
     public static void main(String[] args) {
-        String titreLivre = args[0];
-        int nb = Integer.parseInt(args[1]);
+        String titreLivre = "Shakespeare/Shakespeare/1henryiv.txt";
+        int nb = 10;//Integer.parseInt(args[1]);
 
-        String oeuvreShakee = ""; // ici loader dans une String une oeuvre du bon vieux Shakespear
+        String oeuvreShakee = ""; // ici loader dans une String une oeuvre de Shakespear
+
+        BufferedReader lecteurAvecBuffer = null;
+        String ligne = "";
+        try
+        {
+            lecteurAvecBuffer = new BufferedReader(new FileReader(titreLivre));
+        }
+        catch(FileNotFoundException exc)
+        {
+            System.out.println("Erreur d'ouverture");
+        }
+        try {
+            while ((ligne = lecteurAvecBuffer.readLine()) != null)
+                oeuvreShakee+=ligne+" ";
+
+        }catch (Exception e){
+            System.out.println("Erreur lecture");
+        }
 
         oeuvreShakee = oeuvreShakee.replace(",", "");
         oeuvreShakee = oeuvreShakee.replace(".", "");
         oeuvreShakee = oeuvreShakee.replace("?", "");
         oeuvreShakee = oeuvreShakee.replace("!", "");
-        // l'oeuvre est netoyer partiellement de la ponctuation
+        // l'oeuvre est nettoyée partiellement de la ponctuation
         
         String[] splittedOeuvre = oeuvreShakee.split(" ");
         int range = splittedOeuvre.length;

@@ -35,5 +35,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="quicktheories-0.26" level="project" />
+    <orderEntry type="library" name="commons-io-2.6" level="project" />
   </component>
 </module>
