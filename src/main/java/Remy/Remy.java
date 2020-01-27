@@ -150,8 +150,6 @@ public class Remy {
         boolean counted;
         int sizeOfDifferentTrees = 0;
 
-        //for (int i = (int) noeuds - 2; i >= 0; i--){
-        //   for (int n = 0; n < i; n++) {
         ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
         ArrayList<ArrayList<Integer>> liststmp = new ArrayList<>();
         ArrayList<Integer> p = new ArrayList<>();
@@ -167,7 +165,15 @@ public class Remy {
                 }
             }
             lists = (ArrayList) liststmp.clone();
+            liststmp = new ArrayList<>();
         }
+
+        for (ArrayList<Integer> a : lists) {
+            for(int v : a)
+                System.out.print(v + " ");
+            System.out.println();
+        }
+
         for (int i = 0; i < lists.size(); i++) {
 
             System.out.println("list : " + lists.get(i));
