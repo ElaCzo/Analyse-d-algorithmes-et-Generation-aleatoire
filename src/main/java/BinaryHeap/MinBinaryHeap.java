@@ -27,8 +27,8 @@ public class MinBinaryHeap<T extends Comparable<T>> {
         if(heap.isEmpty())
             return null;
         else {
-            System.out.println("heap.size() : "+(heap.size()));
-            System.out.println("heap dans removeMin : "+heap);
+            //System.out.println("heap.size() : "+(heap.size()));
+            //System.out.println("heap dans removeMin : "+heap);
 
             if(heap.size()>1)
                 swap(0, heap.size() - 1);

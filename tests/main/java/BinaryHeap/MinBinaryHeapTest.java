@@ -1,16 +1,11 @@
 package main.java.BinaryHeap;
 
 import org.quicktheories.core.Gen;
-import org.quicktheories.core.stateful.Sequential;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import static org.quicktheories.QuickTheory.qt;
 import static org.quicktheories.generators.SourceDSL.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MinBinaryHeapTest {
     @org.junit.jupiter.api.Test
@@ -30,12 +25,12 @@ class MinBinaryHeapTest {
                         l.addAll(bh.heap);
                         l.sort(Integer::compare);
 
-                        System.out.println("list sorted : " + l);
+                        //System.out.println("list sorted : " + l);
                         int i = 0;
                         while (!bh.heap.isEmpty()) {
                             int min = bh.removeMin();
-                            System.out.println("removemin : " + min);
-                            System.out.println("l.get(" + i + ") = " + l.get(i));
+                            //System.out.println("removemin : " + min);
+                            //System.out.println("l.get(" + i + ") = " + l.get(i));
                             if (min != l.get(i)) {
                                 System.out.println("FAUX "+min + " "+l.get(i));
                                 return false;
@@ -70,25 +65,6 @@ class MinBinaryHeapTest {
                     }
                 });
     }
-
- /*   @org.junit.jupiter.api.Test
-    void stability() {
-        qt().forAll(commands()).as()
-    }
-
-
-        Gen<MinBinaryHeap<Integer>> heaps(){
-       qt().forAll(integers().allPositive()).
-
-        return lists().of(integers().all()).ofSizeBetween(0, 5)
-                .zip()
-                .as((e) -> {
-                    MinBinaryHeap<Integer> bh = new MinBinaryHeap<>();
-                    for(int value : e)
-                        bh.add(value);
-                    return bh;
-                }).;
-    }*/
 
     Gen<List<Integer>> commands() {
         return lists().of(integers().between(0, 1)).ofSizeBetween(0, 100);

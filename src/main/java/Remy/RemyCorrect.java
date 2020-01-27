@@ -154,7 +154,7 @@ public class RemyCorrect {
             liststmp = new ArrayList<>();
         }
 
-        // Ajout valurs 0 et 1 pour le 2e tirage
+        // Ajout valeurs 0 et 1 pour le 2e tirage
         for (int n = 0; n < 2 * noeuds ; n++) {
             for (int m = 0; m <= 1; m++) {
                 for (ArrayList v : lists) {

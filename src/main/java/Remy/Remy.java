@@ -82,14 +82,14 @@ public class Remy {
         // the leaves in boxes [i, 2*i[ of the tree's array
 
         for (i = 2; i <= n; i++) {
-            System.out.println("i=" + i);
-            System.out.println("n=" + n);
-            System.out.println("list[(int)i-2]*i = " + (list.get((int) i - 2) * i));
-            System.out.println("(i-1) = " + (i - 1));
+            //System.out.println("i=" + i);
+            //System.out.println("n=" + n);
+            //System.out.println("list[(int)i-2]*i = " + (list.get((int) i - 2) * i));
+            //System.out.println("(i-1) = " + (i - 1));
             number = (long) (list.get((int) i - 2)); // random number of [0, i[
             // the leaf is in the box number+i -1
-            System.out.println("number = " + (number));
-            System.out.println("(number+i-1) = " + (number + i - 1));
+            //System.out.println("number = " + (number));
+            //System.out.println("(number+i-1) = " + (number + i - 1));
             change_leaves((int) (i - 1), (int) (number + i - 1));
             tree[(int) (i - 1)].right_child = (int) (2 * i - 1);
             tree[(int) (i - 1)].left_child = (int) (2 * i);
@@ -101,7 +101,6 @@ public class Remy {
         }
     }
 
-    // à check
     public boolean isLeaf(int i) {
         return tree[i].right_child == -1 && tree[i].left_child == -1;
     }
@@ -172,15 +171,14 @@ public class Remy {
             liststmp = new ArrayList<>();
         }
 
-        for (ArrayList<Integer> a : lists) {
+        /*for (ArrayList<Integer> a : lists) {
             for(int v : a)
                 System.out.print(v + " ");
             System.out.println();
-        }
+        }*/
 
         for (int i = 0; i < lists.size(); i++) {
-
-            System.out.println("list : " + lists.get(i));
+            //System.out.println("list : " + lists.get(i));
             for (int a : lists.get(i)) {
                 System.out.print(a + " ");
             }
@@ -202,9 +200,8 @@ public class Remy {
             }
         }
 
-        System.out.println("differentTrees.length " + differentTrees.length);
-        System.out.println("differentTrees " + differentTrees[0]);
-
+        //System.out.println("differentTrees.length " + differentTrees.length);
+        //System.out.println("differentTrees " + differentTrees[0]);
 
         // uniformity?
         for (int i = 0; i < differentTrees.length - 1; i++) {
@@ -212,6 +209,8 @@ public class Remy {
             if (counter[i] != counter[i + 1])
                 return false;
         }
+
+        System.out.println((differentTrees.length-1) + ": " + counter[differentTrees.length-1]);
 
         return true;
     }

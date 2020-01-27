@@ -9,9 +9,9 @@ public class ShakesTree {
     private static String REPOSITORY = "/";
     public static void main(String[] args) {
         String titreLivre = "Shakespeare/Shakespeare/1henryiv.txt";
-        int nb = 30;//Integer.parseInt(args[1]);
+        int nb = 30;
 
-        String oeuvreShakee = ""; // ici loader dans une String une oeuvre de Shakespear
+        String oeuvreShakee = "";
 
         BufferedReader lecteurAvecBuffer = null;
         String ligne = "";
@@ -52,16 +52,6 @@ public class ShakesTree {
             baseMots[i] = splittedOeuvre[indice];
             splittedOeuvre[indice] = null;
         }
-
-        /*Arbre arbreClassique = new Arbre();
-        for( int i = 0 ; i < nb ; i++){
-            Arbre.insert(arbreClassique, baseMots[i]);
-        }*/
-
-        /*ArbreTernaire arbreCustom = new ArbreTernaire();
-        for( int i = 0; i< nb; i++ ){
-            arbreCustom.addMot(baseMots[i], arbreCustom);
-        }*/
 
         Arbre fusionnes1 = new Arbre();
         Arbre fusionnes2 = new Arbre();
