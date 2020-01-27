@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RemyCorrect {
     public int N;
     public Node[] tree;
-    int racine;
+    public int root;
 
     public void add(ArrayList<Integer> list, int n) {
         int randNoeud = list.get(N-1); // savoir si c'est inclu ou pas, il ne faut pas que ça le soit
@@ -25,8 +25,6 @@ public class RemyCorrect {
             nvNoeud.left_child = N + 1;
         }
 
-        if(tree[randNoeud].parent==-1)
-            racine=N;
         nvNoeud.parent = tree[randNoeud].parent;
         tree[N] = nvNoeud;
 
@@ -49,8 +47,6 @@ public class RemyCorrect {
         for(int i=0; i<tree.length; i++)
             System.out.println(tree[i]);
     }
-
-    int root;
 
     public RemyCorrect(int n, ArrayList<Integer> list) {
         tree = new Node[2 * (int) n + 1];
@@ -88,25 +84,8 @@ public class RemyCorrect {
         }
 
         N=2*n+1;
-
-
-
-
-        /*
-        tree = new Node[2 * (int) n + 1];
-        N = 0;
-
-        tree[0] = new Node(-1, -1);
-        tree[0].parent=-1;
-        N = 1;
-
-        while(n>N)
-            add(list, n);
-
-         */
     }
 
-    // à check
     public boolean isLeaf(int i) {
         return tree[i].right_child == -1 && tree[i].left_child == -1;
     }
@@ -120,9 +99,7 @@ public class RemyCorrect {
     }
 
     public String phi() {
-        while(tree[racine].parent!=-1)
-            racine=tree[racine].parent;
-        return phi(racine);
+        return phi(root);
     }
 
     private long fact(long n) {
@@ -238,6 +215,7 @@ public class RemyCorrect {
                 return false;
             }
         }
+
         System.out.println((differentTrees.length-1) + ": " + counter[differentTrees.length-1]);
 
 
@@ -245,6 +223,6 @@ public class RemyCorrect {
     }
 
     public static void main(String[] args) {
-        System.out.println("Rés : "+ RemyCorrect.coverageTests(2));
+        System.out.println("Rés : "+ RemyCorrect.coverageTests(3));
     }
 }

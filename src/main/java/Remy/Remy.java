@@ -148,7 +148,6 @@ public class Remy {
 
     // test de couverture
     public static boolean coverageTests(int noeuds) {
-        ;
         int diffTrees = catalan(noeuds);
         Remy[] differentTrees = new Remy[diffTrees];
         int[] counter = new int[diffTrees];
