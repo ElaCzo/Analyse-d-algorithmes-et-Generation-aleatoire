@@ -54,15 +54,17 @@ public class ShakesTree {
             splittedOeuvre[indice] = null;
         }
 
-        Arbre arbreClassique = new Arbre();
+        /*Arbre arbreClassique = new Arbre();
         for( int i = 0 ; i < nb ; i++){
             Arbre.insert(arbreClassique, baseMots[i]);
-        }
+        }*/
 
-        ArbreTernaire arbreCustom = new ArbreTernaire();
+        /*ArbreTernaire arbreCustom = new ArbreTernaire();
         for( int i = 0; i< nb; i++ ){
             arbreCustom.addMot(baseMots[i], arbreCustom);
-        }
+        }*/
+
+        System.out.println("Est-ce que la fusion fonctionne : "+isFusionBugged());
 
     }
 
@@ -78,11 +80,12 @@ public class ShakesTree {
         Arbre fusionne2 = new Arbre();
         Arbre.insert(fusionne2, mot2);
 
-        Arbre fusionne = Arbre.fusion(fusionne1, fusionne2);
-        
-        // check si les arbres sont pareils
 
-        return false;
+        System.out.println(normal);
+        Arbre fusionne = Arbre.fusion(fusionne1, fusionne2);
+
+        System.out.println(fusionne);
+        return normal.equals(fusionne);
     }
 
 }
