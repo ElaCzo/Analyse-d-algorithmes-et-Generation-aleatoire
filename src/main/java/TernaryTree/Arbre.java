@@ -62,14 +62,15 @@ public class Arbre{
             return construction(mot);
         }
         Arbre[] tmp = new Arbre[3];
-        if( tree.cle.compareTo(mot.charAt(0)+"")>0){
+
+        if(tree.cle.compareTo(mot.charAt(0)+"")>0){
             tmp[0] = insert(tree.fils[0], mot);
             tmp[1] = tree.fils[1];
             tmp[2] = tree.fils[2];
             return generArbre(tree.valeur, tree.cle, tmp);
-        } else if (tree.cle.equals(mot.charAt(0))){
+        } else if (tree.cle.charAt(0) == mot.charAt(0)){
             int valeur = tree.valeur;
-            if (mot.length() == 1 ){
+            if (mot.length() == 1){
                 valeur = 0;
             }
             tmp[0] = tree.fils[0];

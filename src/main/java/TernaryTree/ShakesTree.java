@@ -83,7 +83,7 @@ public class ShakesTree {
         Arbre fusionne = Arbre.fusion(fusionne1, fusionne2);
 
         System.out.println(fusionne);
-        return normal.equals(fusionne);
+        return normal.toString().equals(fusionne.toString());
     }
 
 }
