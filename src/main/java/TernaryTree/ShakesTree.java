@@ -1,6 +1,7 @@
 package main.java.TernaryTree;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ShakesTree {
@@ -8,7 +9,7 @@ public class ShakesTree {
     private static String REPOSITORY = "/";
     public static void main(String[] args) {
         String titreLivre = "Shakespeare/Shakespeare/1henryiv.txt";
-        int nb = 10;//Integer.parseInt(args[1]);
+        int nb = 30;//Integer.parseInt(args[1]);
 
         String oeuvreShakee = ""; // ici loader dans une String une oeuvre de Shakespear
 
@@ -62,13 +63,30 @@ public class ShakesTree {
             arbreCustom.addMot(baseMots[i], arbreCustom);
         }*/
 
-        System.out.println("Est-ce que la fusion fonctionne : "+isFusionBugged());
+        Arbre fusionnes1 = new Arbre();
+        Arbre fusionnes2 = new Arbre();
+        Arbre fusionnes;
+        Arbre inseres = new Arbre();
+        for(int i=0; i<baseMots.length; i++) {
+            if (i<baseMots.length/2)
+                fusionnes1 = Arbre.fusion(fusionnes1, Arbre.insert(new Arbre(), baseMots[i]));
+            else
+                fusionnes2 = Arbre.fusion(fusionnes2, Arbre.insert(new Arbre(), baseMots[i]));
+
+            inseres = Arbre.insert(inseres, baseMots[i]);
+        }
+
+        fusionnes = Arbre.fusion(fusionnes1, fusionnes2);
+
+        System.out.println(inseres);
+        System.out.println(fusionnes);
+        System.out.println("Est-ce que la fusion fonctionne : "+areTreesEqual(fusionnes, inseres));
 
     }
 
-    public static boolean isFusionBugged(){
-        String mot1 = "anticonstitutionnellement";
-        String mot2 = "antipasti";
+    public static boolean isFusionBugged(String s1, String s2){
+        String mot1 = s1;
+        String mot2 = s2;
         Arbre normal = new Arbre();
         normal=Arbre.insert(normal, mot1);
         normal=Arbre.insert(normal, mot2);
@@ -84,6 +102,10 @@ public class ShakesTree {
 
         System.out.println(fusionne);
         return normal.toString().equals(fusionne.toString());
+    }
+
+    public static boolean areTreesEqual(Arbre a1, Arbre a2){
+        return a1.toString().equals(a2.toString());
     }
 
 }

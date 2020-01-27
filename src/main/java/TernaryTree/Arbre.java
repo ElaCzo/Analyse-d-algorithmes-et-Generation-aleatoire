@@ -128,12 +128,12 @@ public class Arbre{
         String g = "(" + cle + ",";
 
         if (valeur !=-1)
-            g+= " "+valeur;
+            g+= ""+valeur;
 
-        g+=" ";
+        g+="";
 
         for (Arbre f : fils)
-            g += f.toString() + " ";
+            g += f.toString() + "";
 
         g += ")";
         return g;
