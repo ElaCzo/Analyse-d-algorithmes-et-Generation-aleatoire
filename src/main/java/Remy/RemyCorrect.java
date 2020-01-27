@@ -12,25 +12,48 @@ public class RemyCorrect {
         tree = new Node[2 * (int) n + 1];
         N = 0;
 
-        tree[0]= new Node();
+        tree[0] = new Node();
         N = 1;
 
-        int randNoeud = new Random().nextInt(N); // savoir si c'est inclus ou pas, il ne faut pas que àa le soit
+        int randNoeud = new Random().nextInt(N); // savoir si c'est inclu ou pas, il ne faut pas que àa le soit
 
         double randFils = Math.random();
 
-        if(randFils<0.5){
-            Node fg = tree[randNoeud];
-            Node nvNoeud = new Node();
+        //sauvegarde ancien noeud
+        Node fg = tree[randNoeud];
 
-            // init nouveau Noeud
+        // init nouveau Noeud
+        Node nvNoeud = new Node();
+
+        if (randFils < 0.5) {
             nvNoeud.left_child = randNoeud;
-            nvNoeud.parent = tree[randNoeud].parent;
-
-
-            tree[randNoeud]=new Node()
+            tree[N + 1] = new Node();
+            nvNoeud.right_child = N + 1;
+        } else {
+            nvNoeud.right_child = randNoeud;
+            tree[N + 1] = new Node();
+            nvNoeud.left_child = N + 1;
         }
+        nvNoeud.parent = tree[randNoeud].parent;
+        tree[N] = nvNoeud;
+
+        // Maj parent
+        if (tree[tree[randNoeud].parent].left_child == randNoeud)
+            tree[tree[randNoeud].parent].left_child = N;
+        else
+            tree[tree[randNoeud].parent].right_child = N;
+
+        // Maj ancien noeud
+        tree[randNoeud].parent = N;
+
+        // Augmentation du nombre de noeuds
+        N++;
+        N++;
+
+        tree[randNoeud] = new Node();
     }
+
+}
 
     public RemyCorrect(long n, ArrayList<Integer> list) {
         long i, number;
@@ -137,7 +160,7 @@ public class RemyCorrect {
         }
 
         for (ArrayList<Integer> a : lists) {
-            for(int v : a)
+            for (int v : a)
                 System.out.print(v + " ");
             System.out.println();
         }
