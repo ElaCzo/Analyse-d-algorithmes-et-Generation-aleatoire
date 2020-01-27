@@ -23,7 +23,7 @@ public class Arbre{
     }
 
     public static Arbre generArbre(int valeur, String cle, Arbre[] fils) {
-        System.out.println("genereArbre : val="+valeur+" cle="+cle);
+        //System.out.println("genereArbre : val="+valeur+" cle="+cle);
         return new Arbre(valeur, cle, fils);
     }
 
@@ -46,8 +46,8 @@ public class Arbre{
                 tmp[1] = construction(mot.substring(1));
                 tmp[2] = generFeuille();
 
-                System.out.println("Dans construction : "+tmp[1]+
-                        " première lettre :"+mot.charAt(0));
+                /*System.out.println("Dans construction : "+tmp[1]+
+                        " première lettre :"+mot.charAt(0));*/
                 return generArbre(-1, mot.charAt(0)+"", tmp);
             }
         }
@@ -58,6 +58,7 @@ public class Arbre{
             return tree;
         }
         if (tree.cle.equals("") ){
+            //System.out.println("--Construction mot--");
             return construction(mot);
         }
         Arbre[] tmp = new Arbre[3];
@@ -119,14 +120,14 @@ public class Arbre{
 
     @Override
     public String toString() {
-        System.out.println("toString : " +cle);
+        //System.out.println("toString : " +cle);
         if(cle.equals(""))
             return ".";
 
         String g = "(" + cle + ",";
 
         if (valeur !=-1)
-            g+= valeur;
+            g+= " "+valeur;
 
         g+=" ";
 

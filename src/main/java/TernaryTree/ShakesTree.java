@@ -1,7 +1,5 @@
 package main.java.TernaryTree;
 
-import sun.misc.IOUtils;
-
 import java.io.*;
 import java.util.Random;
 
@@ -37,7 +35,7 @@ public class ShakesTree {
         oeuvreShakee = oeuvreShakee.replace("?", "");
         oeuvreShakee = oeuvreShakee.replace("!", "");
         // l'oeuvre est nettoyée partiellement de la ponctuation
-        
+
         String[] splittedOeuvre = oeuvreShakee.split(" ");
         int range = splittedOeuvre.length;
 
@@ -72,13 +70,13 @@ public class ShakesTree {
         String mot1 = "anticonstitutionnellement";
         String mot2 = "antipasti";
         Arbre normal = new Arbre();
-        Arbre.insert(normal, mot1);
-        Arbre.insert(normal, mot2);
+        normal=Arbre.insert(normal, mot1);
+        normal=Arbre.insert(normal, mot2);
 
         Arbre fusionne1 = new Arbre();
-        Arbre.insert(fusionne1, mot1);
+        fusionne1=Arbre.insert(fusionne1, mot1);
         Arbre fusionne2 = new Arbre();
-        Arbre.insert(fusionne2, mot2);
+        fusionne2=Arbre.insert(fusionne2, mot2);
 
 
         System.out.println(normal);

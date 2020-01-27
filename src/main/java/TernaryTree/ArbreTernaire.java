@@ -79,7 +79,7 @@ public class ArbreTernaire {
             tmp[2] = this.children[2].fusionne(tree);
             return new ArbreTernaire(this.racine, tmp);
         }
-        
+
         tmp[0] = this.children[0].fusionne(tree.children[0]);
         tmp[1] = this.children[1].fusionne(tree.children[1]);
         tmp[2] = this.children[2].fusionne(tree.children[2]);
