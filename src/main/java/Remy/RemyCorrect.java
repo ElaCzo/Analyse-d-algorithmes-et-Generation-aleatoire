@@ -1,47 +1,42 @@
 package main.java.Remy;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class RemyCorrect {
     public int N;
     public Node[] tree;
+    int racine;
 
-
-    public RemyCorrect(long n) {
-        tree = new Node[2 * (int) n + 1];
-        N = 0;
-
-        tree[0] = new Node();
-        N = 1;
-
-        int randNoeud = new Random().nextInt(N); // savoir si c'est inclu ou pas, il ne faut pas que àa le soit
-
-        double randFils = Math.random();
-
-        //sauvegarde ancien noeud
-        Node fg = tree[randNoeud];
+    public void add(ArrayList<Integer> list, int n) {
+        int randNoeud = list.get(N-1); // savoir si c'est inclu ou pas, il ne faut pas que ça le soit
 
         // init nouveau Noeud
-        Node nvNoeud = new Node();
+        Node nvNoeud = new Node(-1, -1);
 
-        if (randFils < 0.5) {
+        if (list.get((n-1)+N-1) < 0.5) {
             nvNoeud.left_child = randNoeud;
-            tree[N + 1] = new Node();
+            tree[N + 1] = new Node(-1, -1);
+            tree[N + 1].parent = N;
             nvNoeud.right_child = N + 1;
         } else {
             nvNoeud.right_child = randNoeud;
-            tree[N + 1] = new Node();
+            tree[N + 1] = new Node(-1, -1);
+            tree[N + 1].parent = N;
             nvNoeud.left_child = N + 1;
         }
+
+        if(tree[randNoeud].parent==-1)
+            racine=N;
         nvNoeud.parent = tree[randNoeud].parent;
         tree[N] = nvNoeud;
 
         // Maj parent
-        if (tree[tree[randNoeud].parent].left_child == randNoeud)
-            tree[tree[randNoeud].parent].left_child = N;
-        else
-            tree[tree[randNoeud].parent].right_child = N;
+        if(tree[randNoeud].parent!=-1) {
+            if (tree[tree[randNoeud].parent].left_child == randNoeud)
+                tree[tree[randNoeud].parent].left_child = N;
+            else
+                tree[tree[randNoeud].parent].right_child = N;
+        }
 
         // Maj ancien noeud
         tree[randNoeud].parent = N;
@@ -50,47 +45,65 @@ public class RemyCorrect {
         N++;
         N++;
 
-        tree[randNoeud] = new Node();
+        System.out.println("tree à la fin de add : "+tree);
+        for(int i=0; i<tree.length; i++)
+            System.out.println(tree[i]);
     }
 
-}
+    int root;
 
-    public RemyCorrect(long n, ArrayList<Integer> list) {
-        long i, number;
-        N = n;
+    public RemyCorrect(int n, ArrayList<Integer> list) {
         tree = new Node[2 * (int) n + 1];
-        for (int ii = 0; ii < tree.length; ii++)
-            tree[ii] = new Node();
 
-        // built a tree of size 1
-        tree[0].left_child = 1;
-        tree[0].right_child = 2;
-        tree[0].num = 1;
-        tree[1].parent = tree[2].parent = 0;
-        tree[1].right_child = tree[1].left_child = -1;
-        tree[2].right_child = tree[2].left_child = -1;
+        root = 0;
+        tree[0]=new Node();
+        tree[0].parent=-1;
+        for(int i=1; i <= 2*n-1 ; i+=2){
+            int hit = list.get(i-1);
+            int direction = list.get((2*n)+(i-1));
+            int parent = tree[hit].parent;
+            if(parent==-1)
+                root=i;
+            else if(tree[parent].left_child==hit)
+                tree[parent].left_child=i;
+            else
+                tree[parent].right_child=i;
 
-        // the internal nodes will be in the boxes [0; i-1[ of the tree's array
-        // the leaves in boxes [i, 2*i[ of the tree's array
+            tree[i]=new Node();
+            tree[i].parent = parent;
+            if(direction==0){
+                tree[i].left_child = i+1;
+                tree[i].right_child = hit;
+            }
+            else {
+                tree[i].left_child=hit;
+                tree[i].right_child=i+1;
+            }
 
-        for (i = 2; i <= n; i++) {
-            System.out.println("i=" + i);
-            System.out.println("n=" + n);
-            System.out.println("list[(int)i-2]*i = " + (list.get((int) i - 2) * i));
-            System.out.println("(i-1) = " + (i - 1));
-            number = (long) (list.get((int) i - 2)); // random number of [0, i[
-            // the leaf is in the box number+i -1
-            System.out.println("number = " + (number));
-            System.out.println("(number+i-1) = " + (number + i - 1));
-            change_leaves((int) (i - 1), (int) (number + i - 1));
-            tree[(int) (i - 1)].right_child = (int) (2 * i - 1);
-            tree[(int) (i - 1)].left_child = (int) (2 * i);
-
-            tree[(int) (i - 1)].num = (int) i;
-            tree[(int) (2 * i - 1)].parent = tree[(int) (2 * i)].parent = (int) (i - 1);
-            tree[(int) (2 * i - 1)].right_child = tree[(int) (2 * i - 1)].left_child = -1;
-            tree[(int) (2 * i)].right_child = tree[(int) (2 * i)].left_child = -1;
+            tree[hit].parent=i;
+            tree[i+1]= new Node();
+            tree[i+1].left_child=-1;
+            tree[i+1].right_child=-1;
+            tree[i+1].parent=i;
         }
+
+        N=2*n+1;
+
+
+
+
+        /*
+        tree = new Node[2 * (int) n + 1];
+        N = 0;
+
+        tree[0] = new Node(-1, -1);
+        tree[0].parent=-1;
+        N = 1;
+
+        while(n>N)
+            add(list, n);
+
+         */
     }
 
     // à check
@@ -102,12 +115,14 @@ public class RemyCorrect {
         if (isLeaf(i))
             return "";
         else {
-            return "(" + tree[i].left_child + ")" + phi(tree[i].right_child);
+            return "(" + phi(tree[i].left_child) + ")" + phi(tree[i].right_child);
         }
     }
 
     public String phi() {
-        return phi(0);
+        while(tree[racine].parent!=-1)
+            racine=tree[racine].parent;
+        return phi(racine);
     }
 
     private long fact(long n) {
@@ -122,7 +137,10 @@ public class RemyCorrect {
         if (n == 0 || n == 1)
             return 1;
 
-        double res = (2. * (2. * ((double) n) - 3.) / ((double) n)) * catalan(n - 1);
+        int res=0;
+        for(int k=0; k<=n-1; k++){
+            res+=catalan(k)*catalan(n-1-k);
+        }
 
         return (int) res;
     }
@@ -134,9 +152,9 @@ public class RemyCorrect {
 
     // test de couverture
     public static boolean coverageTests(int noeuds) {
-        ;
         int diffTrees = catalan(noeuds);
-        Remy[] differentTrees = new Remy[diffTrees];
+
+        RemyCorrect[] differentTrees = new RemyCorrect[diffTrees];
         int[] counter = new int[diffTrees];
         boolean counted;
         int sizeOfDifferentTrees = 0;
@@ -146,8 +164,22 @@ public class RemyCorrect {
         ArrayList<Integer> p = new ArrayList<>();
         p.add(0);
         lists.add(p);
-        for (int n = 1; n < noeuds - 1; n++) {
+        for (int n = 1; n < 2*noeuds ; n++) {
             for (int m = 0; m <= n; m++) {
+                for (ArrayList v : lists) {
+                    ArrayList<Integer> l = new ArrayList();
+                    l.addAll(v);
+                    l.add(m);
+                    liststmp.add(l);
+                }
+            }
+            lists = (ArrayList) liststmp.clone();
+            liststmp = new ArrayList<>();
+        }
+
+        // Ajout valurs 0 et 1 pour le 2e tirage
+        for (int n = 0; n < 2 * noeuds ; n++) {
+            for (int m = 0; m <= 1; m++) {
                 for (ArrayList v : lists) {
                     ArrayList<Integer> l = new ArrayList();
                     l.addAll(v);
@@ -173,7 +205,14 @@ public class RemyCorrect {
             }
             System.out.println();
 
-            Remy remy = new Remy(noeuds, lists.get(i));
+            Node.cpt=0;
+            RemyCorrect remy = new RemyCorrect(noeuds, lists.get(i));
+
+
+            System.out.println("remy: "+remy.phi());
+            System.out.println(remy.tree);
+            for(Node n : remy.tree)
+                System.out.println(n);
 
             // parcours des arbres déjà présents
             counted = false;
@@ -194,14 +233,18 @@ public class RemyCorrect {
         // uniformity?
         for (int i = 0; i < differentTrees.length - 1; i++) {
             System.out.println(i + ": " + counter[i]);
-            if (counter[i] != counter[i + 1])
+            if (counter[i] != counter[i + 1]) {
+                System.out.println((i+1) + ": " + counter[i+1]);
                 return false;
+            }
         }
+        System.out.println((differentTrees.length-1) + ": " + counter[differentTrees.length-1]);
+
 
         return true;
     }
 
     public static void main(String[] args) {
-        Remy.coverageTests(6);
+        System.out.println("Rés : "+ RemyCorrect.coverageTests(2));
     }
 }

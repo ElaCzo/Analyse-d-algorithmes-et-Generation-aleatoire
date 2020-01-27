@@ -6,11 +6,11 @@ public class Remy {
     public long N;
     public Node[] tree;
 
-
     // construction of a growing binary tree with n internal nodes (n <= N)
     // modifies the position of two leaves, does not modify the tree built
     public void change_leaves(int a, int b) {
         int parenta, parentb;
+
         parenta = tree[a].parent;
         parentb = tree[b].parent;
 
@@ -37,6 +37,7 @@ public class Remy {
             tree[ii] = new Node();
 
         // built a tree of size 1
+        tree[0].parent=-1;
         tree[0].left_child = 1;
         tree[0].right_child = 2;
         tree[0].num = 1;
@@ -69,6 +70,7 @@ public class Remy {
             tree[ii] = new Node();
 
         // built a tree of size 1
+        tree[0].parent=-1;
         tree[0].left_child = 1;
         tree[0].right_child = 2;
         tree[0].num = 1;
@@ -108,12 +110,15 @@ public class Remy {
         if (isLeaf(i))
             return "";
         else {
-            return "(" + tree[i].left_child + ")" + phi(tree[i].right_child);
+            return "(" + phi(tree[i].left_child) + ")" + phi(tree[i].right_child);
         }
     }
 
     public String phi() {
-        return phi(0);
+        int racine = 0;
+        while (tree[racine].parent!=-1)
+            racine=tree[racine].parent;
+        return phi(racine);
     }
 
     private long fact(long n) {
@@ -128,7 +133,10 @@ public class Remy {
         if (n == 0 || n == 1)
             return 1;
 
-        double res = (2. * (2. * ((double) n) - 3.) / ((double) n)) * catalan(n - 1);
+        int res=0;
+        for(int k=0; k<=n-1; k++){
+            res+=catalan(k)*catalan(n-1-k);
+        }
 
         return (int) res;
     }
@@ -196,6 +204,8 @@ public class Remy {
         }
 
         System.out.println("differentTrees.length " + differentTrees.length);
+        System.out.println("differentTrees " + differentTrees[0]);
+
 
         // uniformity?
         for (int i = 0; i < differentTrees.length - 1; i++) {
@@ -208,6 +218,11 @@ public class Remy {
     }
 
     public static void main(String[] args) {
-        Remy.coverageTests(6);
+        System.out.println("Résutat : " + Remy.coverageTests(6));
+    }
+
+    @Override
+    public String toString() {
+        return phi();
     }
 }
