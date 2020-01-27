@@ -1,67 +1,38 @@
 package main.java.Remy;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Remy {
-    public long N;
+public class RemyCorrect {
+    public int N;
     public Node[] tree;
 
 
-    // construction of a growing binary tree with n internal nodes (n <= N)
-    // modifies the position of two leaves, does not modify the tree built
-    public void change_leaves(int a, int b) {
-        int parenta, parentb;
-        parenta = tree[a].parent;
-        parentb = tree[b].parent;
-
-        if (tree[parenta].right_child == a)
-            tree[parenta].right_child = b;
-        else
-            tree[parenta].left_child = b;
-
-        tree[a].parent = parentb;
-
-        if (tree[parentb].right_child == b)
-            tree[parentb].right_child = a;
-        else
-            tree[parentb].left_child = a;
-
-        tree[b].parent = parenta;
-    }
-
-    public Remy(long n) {
-        long i, number;
-        N = n;
+    public RemyCorrect(long n) {
         tree = new Node[2 * (int) n + 1];
-        for (int ii = 0; ii < tree.length; ii++)
-            tree[ii] = new Node();
+        N = 0;
 
-        // built a tree of size 1
-        tree[0].left_child = 1;
-        tree[0].right_child = 2;
-        tree[0].num = 1;
-        tree[1].parent = tree[2].parent = 0;
-        tree[1].right_child = tree[1].left_child = -1;
-        tree[2].right_child = tree[2].left_child = -1;
+        tree[0]= new Node();
+        N = 1;
 
-        // the internal nodes will be in the boxes [0; i-1[ of the tree's array
-        // the leaves in boxes [i, 2*i[ of the tree's array
+        int randNoeud = new Random().nextInt(N); // savoir si c'est inclus ou pas, il ne faut pas que àa le soit
 
-        for (i = 2; i <= n; i++) {
-            number = (long) (Math.random() * i); // random number of [0, i[
-            // the leaf is in the box number+i -1
-            change_leaves((int) (i - 1), (int) (number + i - 1));
-            tree[(int) (i - 1)].right_child = (int) (2 * i - 1);
-            tree[(int) (i - 1)].left_child = (int) (2 * i);
+        double randFils = Math.random();
 
-            tree[(int) (i - 1)].num = (int) i;
-            tree[(int) (2 * i - 1)].parent = tree[(int) (2 * i)].parent = (int) (i - 1);
-            tree[(int) (2 * i - 1)].right_child = tree[(int) (2 * i - 1)].left_child = -1;
-            tree[(int) (2 * i)].right_child = tree[(int) (2 * i)].left_child = -1;
+        if(randFils<0.5){
+            Node fg = tree[randNoeud];
+            Node nvNoeud = new Node();
+
+            // init nouveau Noeud
+            nvNoeud.left_child = randNoeud;
+            nvNoeud.parent = tree[randNoeud].parent;
+
+
+            tree[randNoeud]=new Node()
         }
     }
 
-    public Remy(long n, ArrayList<Integer> list) {
+    public RemyCorrect(long n, ArrayList<Integer> list) {
         long i, number;
         N = n;
         tree = new Node[2 * (int) n + 1];
