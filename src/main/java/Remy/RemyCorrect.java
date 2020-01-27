@@ -201,6 +201,7 @@ public class RemyCorrect {
 
             if (!counted) {
                 differentTrees[sizeOfDifferentTrees] = remy;
+                counter[sizeOfDifferentTrees]++;
                 sizeOfDifferentTrees++;
             }
         }

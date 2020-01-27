@@ -196,6 +196,7 @@ public class Remy {
 
             if (!counted) {
                 differentTrees[sizeOfDifferentTrees] = remy;
+                counter[sizeOfDifferentTrees]++;
                 sizeOfDifferentTrees++;
             }
         }
@@ -204,19 +205,18 @@ public class Remy {
         //System.out.println("differentTrees " + differentTrees[0]);
 
         // uniformity?
+        boolean b = true;
         for (int i = 0; i < differentTrees.length - 1; i++) {
             System.out.println(i + ": " + counter[i]);
             if (counter[i] != counter[i + 1])
-                return false;
+                b=false;
         }
 
-        System.out.println((differentTrees.length-1) + ": " + counter[differentTrees.length-1]);
-
-        return true;
+        return b;
     }
 
     public static void main(String[] args) {
-        System.out.println("Résutat : " + Remy.coverageTests(6));
+        System.out.println("Résutat : " + Remy.coverageTests(3));
     }
 
     @Override
